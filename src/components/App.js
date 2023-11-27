@@ -37,12 +37,15 @@ class App extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <dic className="col-lg-12">
+                    <div className="col-lg-12">
                         <SearchBar />
-                    </dic>
+                    </div>
                 </div>
 
-                <MovieList />
+                <MovieList
+                    movies={this.state.movies}/>  {/*state icerisinde tanımlanan data'yı alıyor. */}
+
+                
             </div>
         )
 
