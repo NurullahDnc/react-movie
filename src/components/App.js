@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import MovieList from './MovieList';
 
+
 class App extends React.Component {
 
     state = {
@@ -13,7 +14,7 @@ class App extends React.Component {
                 "overview": "This is a wider card with supporting text below as a natural lead-in to additional content.",
                 "imageURL": "https://image.tmdb.org/t/p/w220_and_h330_face/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg"
             },
-        
+
             {
                 "id": 2,
                 "name": "Interstellar",
@@ -21,7 +22,7 @@ class App extends React.Component {
                 "overview": "This is a wider card with supporting text below as a natural lead-in to additional content.",
                 "imageURL": "https://image.tmdb.org/t/p/w220_and_h330_face/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"
             },
-        
+
             {
                 "id": 3,
                 "name": "Arrow",
@@ -31,9 +32,18 @@ class App extends React.Component {
             }
         ]
     }
+ 
+    //delete islemi
+    deletMovie = (movie) => {
+        const newmovieList = this.state.movies.filter( /* flimleri filitreliyor sildikren sonra tekrar liste olsuturacak */
+            m => m.id !== movie.id  /* movie id esit olmayanları getir */
+        )
+        this.setState({
+            movies: newmovieList
+        })
+    }
 
     render() {
-
         return (
             <div className="container">
                 <div className="row">
@@ -43,9 +53,11 @@ class App extends React.Component {
                 </div>
 
                 <MovieList
-                    movies={this.state.movies}/>  {/*state icerisinde tanımlanan data'yı alıyor. */}
+                    movies={this.state.movies}   /* props olarak gonderme state icerisinde tanımlanan data'yı alıyor. */
+                    propsDeletMovie= {this.deletMovie}
+                    />
+                    
 
-                
             </div>
         )
 
@@ -55,3 +67,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+//! filter()  = filter ediyor filitreliyor ?
