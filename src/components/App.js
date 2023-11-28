@@ -38,9 +38,13 @@ class App extends React.Component {
         const newmovieList = this.state.movies.filter( /* flimleri filitreliyor sildikren sonra tekrar liste olsuturacak */
             m => m.id !== movie.id  /* movie id esit olmayanları getir */
         )
-        this.setState({
-            movies: newmovieList
-        })
+        // this.setState({  /*2.yontem filimler ilimizde olmasa kulanırırz */
+        //     movies: newmovieList    /*olusturdugummuz newmovieList guncel halini movies'e atıyoruz */
+        // })
+    
+        this.setState(state =>({    /*parametre olarak var olan satate alıyoruz, var olan state gunceliyoruz  */
+            movies: newmovieList    /*olusturdugummuz newmovieList guncel halini movies'e atıyoruz */ 
+        }))
     }
 
     render() {
