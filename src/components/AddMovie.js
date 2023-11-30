@@ -1,16 +1,24 @@
 import React from 'react';
+import serialize from 'form-serialize'; // serialize formdan degerleri almak icin
+
 
 class AddMovie extends React.Component {
 
+    handleFormSubmit = (e) => {
+        e.preventDefault()
+        const newMovie = serialize(e.target, { hash: true }); // e.traget'ini alıyoruz formun, newMovie'e at
+        // console.log(newMovie);
+        this.props.onAddMovie(newMovie); /*props ile newMovie degiskenini parametre olarka   onAddMovie func. gonder */
+    }
 
     render() {
 
         return (
             <div className="container">
-                <form className="mt-5">
+                <form className="mt-5" onSubmit={this.handleFormSubmit}>
                     <input className="form-control" id="disabledInput" type="text" placeholder="Fill The Form To Add A Movie.." disabled />
                     <div className="form-row d-flex">
-                        <div className="form-group col-md-10">
+                        <div className="form-group col-md-9">
                             <label htmlFor="inputName">Name</label>
                             <input type="text"
                                 className="form-control"
@@ -42,6 +50,7 @@ class AddMovie extends React.Component {
                         </div>
                     </div>
                     <input type="submit" className="btn btn-danger btn-block" value="Add Movie" />
+
                 </form>
             </div>
         )

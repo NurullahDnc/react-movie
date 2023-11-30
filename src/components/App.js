@@ -3,13 +3,13 @@ import SearchBar from './SearchBar';
 import MovieList from './MovieList';
 import AddMovie from './AddMovie';
 import axios from 'axios';  //axios istek atma
-import { BrowserRouter as Router, Switch, Route, Link, Routes } from "react-router-dom"; //router import etme
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; //router import etme
 
 
 class App extends React.Component {
 
     state = {
-        movies: [],
+        movies: [], /*resimleri buraya atıyoruz burdan islem yapıyoruz */
         searcQuery: ""  /*inputa girilen degeri buraya atıyoruz */
     }
 
@@ -72,13 +72,22 @@ class App extends React.Component {
         }))
     }
 
+
     //*search islemi
     searcMovie = (event) => {
         // console.log(event.target.value)
         this.setState({ searcQuery: event.target.value })
     }
 
+    //* add islemi
+    addMovie = async (movie) => {
+        axios.post(`http://localhost:3002/movies/`, movie) // 2. parametreyi de 3 alıyor
+        this.setState(state => ({  // movies'i gunceliyoruz
+            movies: state.movies.concat([movie])    // aray oldugu icin concat metodu ile ekleme yaptık
+        }))
 
+
+    }
 
     render() {
         //filitreleme islemi, sonrası ekranda gosterme
@@ -97,9 +106,9 @@ class App extends React.Component {
                             element={(  /*geriye dondermek icin render gorevi goruyor? */
                                 <React.Fragment>    {/*faazladan div kulanmamak icin, uste render oldugu icin tek div altında topluyoruz*/}
                                     <div className="row mt-4">
-                                    <SearchBar
-                                        propsSearchMovie={this.searcMovie} /*searcMovie func. , propsSearchMovie degiskenin icerisine at ve props ile gonder gonder*/
-                                    />
+                                        <SearchBar
+                                            propsSearchMovie={this.searcMovie} /*searcMovie func. , propsSearchMovie degiskenin icerisine at ve props ile gonder gonder*/
+                                        />
                                     </div>
 
                                     <MovieList
@@ -109,8 +118,18 @@ class App extends React.Component {
                                 </React.Fragment>
                             )}
                         />
-                        
-                        <Route path="add" element={<AddMovie />} /> {/*tek comparent ve props olamdıgı icin boyle de kulanım oluyor */}
+
+                        <Route
+                            path="/add"
+                            element={(
+                                <AddMovie
+                                    //onAddMovie func'ının movie parametresini burda addMovie func. movie parametresi olarak gonder
+                                    onAddMovie={(movie) => { this.addMovie(movie) }
+
+                                    }
+                                />
+                            )}
+                        />
                     </Routes>
                 </div>
             </Router>
@@ -127,7 +146,7 @@ export default App;
 
 //? <Router>  == kapsayıcı gorevi goruyor
 //? <Route path='/' render={() => ( )</Route>   == poute ile kodu boluyoruz hangısı hangisi ile gosterilecek/ path link / render geriye render ediyoruz
-//? <Routes>  == 
+//? <Routes>  == ?
 //? </React.Fragment>  == jsx kodalrı tek kapsayıcı icrisinde olmalı, fazladan div kulanmak yerine bu yapıyı kulanıyoruz.
 
 

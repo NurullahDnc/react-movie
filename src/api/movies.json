@@ -29,11 +29,18 @@
       "imageURL": "https://image.tmdb.org/t/p/w220_and_h330_face/TnOeov4w0sTtV2gqICqIxVi74V.jpg"
     },
     {
-      "id": 6,
-      "name": "Superman",
-      "rating": 7.6,
-      "overview": "This is a wider card with supporting text below as a natural lead-in to additional content.",
-      "imageURL": "https://image.tmdb.org/t/p/w220_and_h330_face/6Bbq8qQWpoApLZYWFFAuZ1r2gFw.jpg"
+      "name": "Son Savascı",
+      "rating": "8",
+      "imageURL": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wrnFla97iehwKu0tBjzN1hodiCD.jpg",
+      "overview": "Tüm dünyanın yönetimini ele geçirmiş olan Exor adlı dev şirket gezegenler arası bir koloniyi yönetmektedir. Biyogenetik deneylerle yarattığı mutasyon geçirmiş dev yaratıklar",
+      "id": 6
+    },
+    {
+      "name": "kara kule",
+      "rating": "6",
+      "imageURL": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1RFIlciWz4mBrTIxqnuVifOMJo1.jpg",
+      "overview": "Roland Deschain, bütün evreni bir arada tutan Kara Kule'nin yok olmasını engellemek için, Siyah Giyen Adam olarak bilinen Walter O'dim'e karşı sürdürdüğü, sonsuz",
+      "id": 7
     }
   ]
 }
