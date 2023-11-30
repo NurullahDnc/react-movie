@@ -1,7 +1,9 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import MovieList from './MovieList';
-import axios from 'axios';
+import AddMovie from './AddMovie';
+import axios from 'axios';  //axios istek atma
+import { BrowserRouter as Router, Switch, Route, Link, Routes } from "react-router-dom"; //router import etme
 
 
 class App extends React.Component {
@@ -22,7 +24,7 @@ class App extends React.Component {
     // }
 
 
-    //  2. yontem axios ile istek atma
+    //*  2. yontem axios ile istek atma
     async componentDidMount() {
         const response = await axios.get("http://localhost:3002/movies");  // istek atıyoruz 
         // console.log(response)
@@ -57,28 +59,29 @@ class App extends React.Component {
     //     }))
     // }
 
-    //* 2 axios ile delete islemi
+    //* 3 axios ile delete islemi
     deletMovie = async (movie) => {
-        axios.delete(`http://localhost:3002/movies/${movie.id}`);   
+        axios.delete(`http://localhost:3002/movies/${movie.id}`);
 
-        const newmovieList = this.state.movies.filter( 
-            m => m.id !== movie.id  
+        const newmovieList = this.state.movies.filter(
+            m => m.id !== movie.id
         )
 
-        this.setState(state => ({    
-            movies: newmovieList    
+        this.setState(state => ({
+            movies: newmovieList
         }))
     }
 
-    //search islemi
+    //*search islemi
     searcMovie = (event) => {
         // console.log(event.target.value)
         this.setState({ searcQuery: event.target.value })
     }
 
 
+
     render() {
-        //filitreleme islemi
+        //filitreleme islemi, sonrası ekranda gosterme
         let filterMovies = this.state.movies.filter(
             (movie) => {  /* filimler movie parametresinde  */
                 return movie.name.toLocaleLowerCase().indexOf(this.state.searcQuery.toLocaleLowerCase()) !== -1     /*aranan deger filim'in iceriside var ise geriye, gon yoksa -1 bos don */
@@ -86,24 +89,46 @@ class App extends React.Component {
         )
 
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <SearchBar
-                            propsSearchMovie={this.searcMovie} /*searcMovie func. , propsSearchMovie degiskenin icerisine at ve props ile gonder gonder*/
-                        />
-                    </div>
-                </div>
+            <Router>    {/*kapsayıcı gorevi goruyor */}
+                <div className="container">
+                    <Routes>
+                        <Route  // gosterilecek yapıları boluyor 
+                            path="/"   /* link veriyoruz */
+                            element={(  /*geriye dondermek icin render gorevi goruyor? */
+                                <React.Fragment>    {/*faazladan div kulanmamak icin, uste render oldugu icin tek div altında topluyoruz*/}
+                                    <div className="row mt-4">
+                                    <SearchBar
+                                        propsSearchMovie={this.searcMovie} /*searcMovie func. , propsSearchMovie degiskenin icerisine at ve props ile gonder gonder*/
+                                    />
+                                    </div>
 
-                <MovieList
-                    movies={filterMovies}   /* props olarak gonderme, filitrelenen ogeleri, ekranda gosterilecek kartlar*/
-                    propsDeletMovie={this.deletMovie}
-                />
-            </div>
-        )
+                                    <MovieList
+                                        movies={filterMovies}
+                                        propsDeletMovie={this.deletMovie}
+                                    />
+                                </React.Fragment>
+                            )}
+                        />
+                        
+                        <Route path="add" element={<AddMovie />} /> {/*tek comparent ve props olamdıgı icin boyle de kulanım oluyor */}
+                    </Routes>
+                </div>
+            </Router>
+        );
+
     }
 }
 
 export default App;
 
 //! filter()  = filter ediyor filitreliyor ?
+
+//* router yoneldirici 
+
+//? <Router>  == kapsayıcı gorevi goruyor
+//? <Route path='/' render={() => ( )</Route>   == poute ile kodu boluyoruz hangısı hangisi ile gosterilecek/ path link / render geriye render ediyoruz
+//? <Routes>  == 
+//? </React.Fragment>  == jsx kodalrı tek kapsayıcı icrisinde olmalı, fazladan div kulanmak yerine bu yapıyı kulanıyoruz.
+
+
+

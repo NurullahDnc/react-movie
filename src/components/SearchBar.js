@@ -10,8 +10,8 @@ class SearchBar extends React.Component {
 
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <div className='form-row mb-5 mt-4'>
-                    <div className='col-12'>
+                <div className='form-row mb-5 d-flex'>
+                    <div className='col-10'> 
                         <input
                             onChange={this.props.propsSearchMovie}    // propdan gelen degeri calıstır, event parametresi gonderiyor
                             type='text'
@@ -19,6 +19,13 @@ class SearchBar extends React.Component {
                             placeholder='search a movies'>
 
                         </input>
+                    </div>
+
+                    <div className="col-2">
+                        <button type="button" 
+                                className="btn btn-md btn-danger"
+                                style={{float:'right'}}>Add Movie
+                        </button>
                     </div>
                 </div>
             </form>
