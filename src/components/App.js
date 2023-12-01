@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import MovieList from './MovieList';
 import AddMovie from './AddMovie';
+import EditMovie from './EditMovie';
 import axios from 'axios';  //axios istek atma
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; //router import etme
 
@@ -95,7 +96,9 @@ class App extends React.Component {
             (movie) => {  /* filimler movie parametresinde  */
                 return movie.name.toLocaleLowerCase().indexOf(this.state.searcQuery.toLocaleLowerCase()) !== -1     /*aranan deger filim'in iceriside var ise geriye, gon yoksa -1 bos don */
             }
-        )
+        ).sort((a, b) => { //* eklenen filmler uste gelecek, karsılastırma
+            return a.id < b.id ? 1 : a.id > b.id ? -1 : 0  //b.id buyuk ise 2. don, b.id kucuk ise 1. don, 0 da id esit oldgunu gosteriri
+        });
 
         return (
             <Router>    {/*kapsayıcı gorevi goruyor */}
@@ -130,6 +133,9 @@ class App extends React.Component {
                                 />
                             )}
                         />
+
+                        <Route path="/edit/:id" Component={EditMovie} />  {/*id'i dinamik olarak gonderiyoruz. */}
+
                     </Routes>
                 </div>
             </Router>

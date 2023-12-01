@@ -1,35 +1,63 @@
+import axios from 'axios';
 import React from 'react';
-import serialize from 'form-serialize'; // serialize formdan degerleri almak icin
 
 
-class AddMovie extends React.Component {
+class EditMovie extends React.Component {
+
+    state={
+        name: "",
+        rating: "",
+        overview: "",
+        imageURL: ""
+    }
+
+
+    async componentDidMount(){
+
+        const id = window.location.pathname.replace("/edit/", "")  // hangi filmi yakalıyacagımızı belirliyoruz
+        console.log(id)
+        
+        const response = await axios.get(`http://localhost:3002/movies/${id}`) 
+        // console.log(response.data)
+  
+        const movie = response.data;  /*veriyi movie nin icerisine atık */
+
+        this.setState({  /*setstate metodu ile state guncelle */
+            name: movie.name,   /*movie.name'i al, name ile guncelle */
+            rating: movie.rating,
+            overview: movie.overview,
+            imageURL: movie.imageURL
+        })
+    
+    }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        const newMovie = serialize(e.target, { hash: true }); // e.traget'ini alıyoruz formun, newMovie'e at
-        // console.log(newMovie);
-        this.props.onAddMovie(newMovie); /*props ile newMovie degiskenini parametre olarka   onAddMovie func. gonder */
+          
     }
-    
+
     render() {
 
         return (
             <div className="container">
                 <form className="mt-5" onSubmit={this.handleFormSubmit}>
-                    <input className="form-control" id="disabledInput" type="text" placeholder="Fill The Form To Add A Movie.." disabled />
+                    <input className="form-control" id="disabledInput" type="text" placeholder="Edit The Form To Update A Movie.." disabled />
                     <div className="form-row d-flex">
                         <div className="form-group col-md-9">
                             <label htmlFor="inputName">Name</label>
                             <input type="text"
                                 className="form-control"
-                                name="name" />
+                                name="name"
+                                value={this.state.name} />
                         </div>
                         <div className="form-group col-md-2">
                             <label htmlFor="inputRating">Rating</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                name="rating" />
+                                name="rating" 
+                                value={this.state.rating} />
+                                
                         </div>
                     </div>
                     <div className="form-row">
@@ -38,7 +66,8 @@ class AddMovie extends React.Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                name="imageURL" />
+                                name="imageURL" 
+                                value={this.state.imageURL}/>
                         </div>
                     </div>
                     <div className="form-row">
@@ -46,10 +75,10 @@ class AddMovie extends React.Component {
                             <label htmlFor="overviewTextarea">Overview</label>
                             <textarea
                                 className="form-control"
-                                name="overview" rows="5"></textarea>
+                                name="overview" value={this.state.overview} rows="5"></textarea>
                         </div>
                     </div>
-                    <input type="submit" className="btn btn-danger btn-block" value="Add Movie" />
+                    <input type="submit" className="btn btn-danger btn-block" value="Edit" />
 
                 </form>
             </div>
@@ -60,6 +89,6 @@ class AddMovie extends React.Component {
 }
 
 
-export default AddMovie;
+export default EditMovie;
 
 //! onChange()  = her degisklikte calısıyor
