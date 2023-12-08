@@ -1,20 +1,6 @@
 {
   "movies": [
     {
-      "id": 1,
-      "name": "The Flash",
-      "rating": 8.3,
-      "overview": "This is a wider card with supporting text below as a natural lead-in to additional content.",
-      "imageURL": "https://image.tmdb.org/t/p/w220_and_h330_face/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg"
-    },
-    {
-      "id": 3,
-      "name": "Arrow",
-      "rating": 7.9,
-      "overview": "This is a wider card with supporting text below as a natural lead-in to additional content.",
-      "imageURL": "https://image.tmdb.org/t/p/w220_and_h330_face/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg"
-    },
-    {
       "id": 4,
       "name": "Rogue",
       "rating": 7.4,
@@ -36,18 +22,18 @@
       "id": 6
     },
     {
-      "name": "kara kule",
-      "rating": "6",
-      "imageURL": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1RFIlciWz4mBrTIxqnuVifOMJo1.jpg",
-      "overview": "Roland Deschain, bütün evreni bir arada tutan Kara Kule'nin yok olmasını engellemek için, Siyah Giyen Adam olarak bilinen Walter O'dim'e karşı sürdürdüğü, sonsuz",
-      "id": 7
-    },
-    {
       "name": "Sound of Freedom (2023)",
       "rating": "7",
       "imageURL": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qA5kPYZA7FkVvqcEfJRoOy4kpHg.jpg",
       "overview": "Roland Deschain, bütün evreni bir arada tutan Kara Kule'nin yok olmasını engellemek için, Siyah Giyen Adam olarak bilinen Walter O'dim'e karşı sürdürdüğü, sonsuz",
       "id": 8
+    },
+    {
+      "name": "Matrix",
+      "rating": "6",
+      "imageURL": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wrnFla97iehwKu0tBjzN1hodiCD.jpg",
+      "overview": " async componentDidMount() {\n        const response = await axios.get(\"http://localhost:3002/movies\");  // istek atıyoruz \n        // console.log(response)\n        this.setState({ movies: response.data });\n    }",
+      "id": 10
     }
   ]
 }

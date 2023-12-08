@@ -24,9 +24,14 @@ class App extends React.Component {
     //     this.setState({ movies: data });  // data icerisindeki veri movies'e atıldı
     // }
 
+    //* urun eklendikten sonra func. cagırıyor, guncel gozukmesi icin 
+    componentDidMount() {
+        this.getMovies();/*alta olusturulan func buraya cagırık, olusturulun film alta gozukuyor uste gozukmesi icin tekarar calıstırık, refres yani */
+    }
 
     //*  2. yontem axios ile istek atma
-    async componentDidMount() {
+
+    async getMovies() {
         const response = await axios.get("http://localhost:3002/movies");  // istek atıyoruz 
         // console.log(response)
         this.setState({ movies: response.data });
@@ -82,12 +87,18 @@ class App extends React.Component {
 
     //* add islemi
     addMovie = async (movie) => {
-        axios.post(`http://localhost:3002/movies/`, movie) // 2. parametreyi de 3 alıyor
+        await axios.post(`http://localhost:3002/movies/`, movie) // 2. parametreyi de 3 alıyor?  / put guncelleme
         this.setState(state => ({  // movies'i gunceliyoruz
             movies: state.movies.concat([movie])    // aray oldugu icin concat metodu ile ekleme yaptık
         }))
+        this.getMovies(); // ekleme sonrası syafa yenilenme gorevi goruyor, film uste gozukuyor
 
+    }
 
+    //* Edit islemi   not?
+    editMovie = async (id, updatedMovie) => {
+        await axios.put(`http://localhost:3002/movies/${id}`,updatedMovie) // 2. parametreyi de 3 alıyor
+        /*setste gerek yok uste yapıyoruz, guncel veriyi state ye atma */
     }
 
     render() {
@@ -134,7 +145,20 @@ class App extends React.Component {
                             )}
                         />
 
-                        <Route path="/edit/:id" Component={EditMovie} />  {/*id'i dinamik olarak gonderiyoruz. */}
+                        {/*editleme calısmıyor,- id'yi usteki editMovie func gonderilmedi */}
+                        <Route
+                            path="/edit/:id" element={(
+                                <EditMovie
+                                    //onAddMovie func'ının movie parametresini burda addMovie func. movie parametresi olarak gonder
+                                    onEditMovie={(id, movie) => { this.editMovie(movie) }  /*editMovie func adı  */
+
+                                    }
+                                />
+                            )}
+                        />
+
+
+                        {/* <Route path="/edit/:id" Component={EditMovie} />  id'i dinamik olarak gonderiyoruz. "usteki kodu icerisine yazıldı" */}
 
                     </Routes>
                 </div>

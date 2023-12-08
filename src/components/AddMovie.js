@@ -9,6 +9,7 @@ class AddMovie extends React.Component {
         const newMovie = serialize(e.target, { hash: true }); // e.traget'ini alıyoruz formun, newMovie'e at
         // console.log(newMovie);
         this.props.onAddMovie(newMovie); /*props ile newMovie degiskenini parametre olarka   onAddMovie func. gonder */
+        // this.props.history.push('/');  // yonelendirme ama  calısmıyor
     }
     
     render() {
