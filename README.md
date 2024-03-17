@@ -8,7 +8,7 @@
 </div>
 
 
- 
+  
 ## About The Project
 
 ![image](https://github.com/NurullahDnc/react-movie-work/assets/150585098/ef1ec138-b42f-48aa-af61-cfe40b42c0b9)
